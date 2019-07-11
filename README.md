@@ -12,17 +12,6 @@ By the end of the course, students are expected to be able to:
 5. Automate data science workflows (using e.g., Make).
 6. Manage project software and environment dependencies (using e.g., Docker)
 
-## Teaching Team
-
-| Position | Name  | Slack Handle | GHE Handle | Office Hour |
-| :------: | :---: | :----------: | :--------: | :----------:|
-| Lecture & Lab Instructor | Tiffany Timbers | `@tiffany` |  `@timberst` | Thurs 12:30 - 13:30 |
-| Teaching Assistant | 	Ali Mirza | `@Ali Mirza` | `@amirza17` | TBD |
-| Teaching Assistant | Ozum Kafaee | `@ozum`  | `@ozum` | TBD |
-| Teaching Assistant | Pedro Odon | `@podon` | `@podon` | 14:00-15:00 on Fridays in ESB 3174  |
-
-*note - Attendance at office hours is optional* 
-
 ## Project deadlines
 
 This is an __project-based course__. You'll be evaluated as follows:
