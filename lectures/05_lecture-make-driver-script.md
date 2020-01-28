@@ -1,6 +1,35 @@
+<!-- #region -->
 # DSCI 522
 ## Lecture 5 - Data Analysis pipelines
 ### 2020-01-28
+
+## First - a discussion on which filetypes to save things as
+
+### Data at the beginning and end of an analysis
+- Data someone might want to eyeball (e.g., at the beginning or end of an analysis) should be easily readable by a human in many program if possible, so `.csv` for example.
+
+### Intermediate data files
+- For intermediate data files that are being passed between scripts, it is not as necessary for them to be human readable. Here we might want to optimize storage space or read/write speed. Something like `feather` can be a nice option for data frames for example (and this can be read by Python & R). For more info see: 
+
+### Model objects
+- For models that we might want to use later in another script for prediction, we need to save them in a format that R or Python can read again as that object. In R we use `.rds`, and in Python we use `.pickle`. Examples of how to use these functions is below:
+
+#### example of `saveRDS()`
+```
+saveRDS(final_knn_model, "results/final_knn_model.rds")
+```
+
+#### example of `readRDS()`
+```
+final_knn_model <- readRDS("results/final_knn_model.rds")
+```
+
+#### example of `pickle.dump()`
+```
+import pickle
+pickle.dump(final_knn_model, open("results/final_knn_model.rds", "wb"))
+```
+
 
 # Learning Objectives
 ## By the end of the lecture, students should be able to:
@@ -48,7 +77,7 @@ file_to_create.png : data_it_depends_on.dat script_it_depends_on.py
 file_to_create_1.png file_to_create_1.png : data_it_depends_on.dat script_it_depends_on.py
 	python script_it_depends_on.py data_it_depends_on.dat file_to_create
 ~~~
-
+<!-- #endregion -->
 
 ### Let's do some analysis!
 
@@ -207,7 +236,7 @@ We get:
 make: `clean' is up to date.
 ~~~
 
-
+<!-- #region -->
 Let's add another rule to the end of `Makefile`:
 
 ~~~
@@ -259,23 +288,26 @@ $ make abyss.png
 OR we can add a target `all` which will build the last of the dependencies.
 
 ~~~
-all: isles.png abyss.png
+all: results/figure/isles.png results/figure/abyss.png
 
-isles.dat : books/isles.txt wordcount.py
-	python wordcount.py books/isles.txt isles.dat
+# count words
+results/isles.dat : data/isles.txt src/wordcount.py
+	python src/wordcount.py data/isles.txt results/isles.dat
+	
+results/abyss.dat : data/abyss.txt src/wordcount.py
+	python src/wordcount.py data/abyss.txt results/abyss.dat
 
-isles.png : isles.dat plotcount.py
-	python plotcount.py isles.dat isles.png
+# plot word count
+results/figure/isles.png : results/isles.dat src/plotcount.py
+	python src/plotcount.py results/isles.dat isles.png
 
-abyss.dat : books/abyss.txt wordcount.py
-	python wordcount.py books/abyss.txt abyss.dat
-
-abyss.png : abyss.dat plotcount.py
-	python plotcount.py abyss.dat abyss.png
+results/figure/abyss.png : results/abyss.dat src/plotcount.py
+	python src/plotcount.py results/abyss.dat abyss.png
 
 clean :
-	rm -f *.dat
-	rm -f *.png
+	rm -f results/*.dat
+	rm -f results/figure/*.png
+
 ~~~
 
 ## Finish off the Makefile!
@@ -284,6 +316,16 @@ clean :
 
 2. Add the final report.
 
+
+## Pattern matching and variables in a Makefile
+
+It is possible to DRY out a Makefile and use variables.
+
+Using wild cards and pattern matching in a makefile is possible, but the syntax is not very readable. So if you choose to do this proceed with caution. Example of how to do this are here: http://swcarpentry.github.io/make-novice/05-patterns/index.html
+
+As for variables in a Makefile, in most cases we actually do not want to do this. The reason is that we want this file to be a record of what we did to run our analysis (e.g., what files were used, what settings were used, etc). If you start using variables with your Makefile, then you are shifting the problem of recording how your analysis was done to another file. There needs to be some file in your repo that captures what variables were called so that you can replicate your analysis. Examples of using variables in a Makefile are here: http://swcarpentry.github.io/make-novice/06-variables/index.html
+
 ## Start a Makefile for your project!
 
 Create a Makefile for your project and add at least one rule.
+<!-- #endregion -->
