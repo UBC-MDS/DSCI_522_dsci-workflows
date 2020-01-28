@@ -1,0 +1,14 @@
+((*- extends 'article.tplx' -*))
+
+((* block author *))
+\author{Firas Moosvi - Open report.tplx to edit the author name}
+((* endblock author *))
+
+((* block title *))
+\title{Title of your report - Open report.tplx to edit the report title name }
+((* endblock title *))
+
+((* block bibliography *))
+\bibliographystyle{unsrt}
+\bibliography{report}
+((* endblock bibliography *))

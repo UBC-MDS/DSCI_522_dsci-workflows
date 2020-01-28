@@ -1,0 +1,50 @@
+---
+title: "Altair-reticulate"
+output: html_document
+---
+
+```{r load_packages}
+library(vegawidget) # Need to install this using: install.packages('vegawidget')
+library(reticulate)
+use_python('/usr/local/bin/python3') # you may not need this, comment out if so
+```
+
+```{python Altair}
+import altair as alt
+import pandas as pd
+source = pd.DataFrame({
+    'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+    'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
+})
+chart1 = alt.Chart(source).mark_bar().encode(
+    alt.X('a:N',title='X-Axis label'),
+    alt.Y('b:Q',title='Y-axis label')).to_json()
+
+```
+
+```{r display1}
+as_vegaspec(py$chart1)
+```
+
+
+```{python Altair4}
+import altair as alt
+import pandas as pd
+source = pd.DataFrame({
+    'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+    'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
+})
+chart2 = alt.Chart(source).mark_bar().encode(
+    alt.X('a:N',title='X-Axis label'),
+    alt.Y('b:Q',title='Y-axis label')
+).properties(title={
+      "text": ["Altair now has multi-line titles!!", "Second line of title"], 
+      "subtitle": ["And subtitles! SO COOL", "Even cooler second line wow dang, but you need to update to v4 of Altair"],
+      "color": "red",
+      "subtitleColor": "green"
+    }).to_json()
+```
+
+```{r display2}
+as_vegaspec(py$chart2)
+```

@@ -1,0 +1,50 @@
+---
+title: "Testing Python"
+output: 
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+library(tidyverse)
+```
+
+## Python in `.Rmd` files
+
+### Load libraries
+
+Just like R, you can use Python in `.Rmd` files! Here we import our libraries
+
+```{python libraries}
+import pandas as pd
+```
+
+### Load data
+
+Let's load the titanic data and view the top of the data set:
+
+```{python data}
+titanic  = pd.read_csv("../data/titanic.csv")
+titanic.head()
+```
+
+### plot data
+
+I currently cannot make altair work in `.Rmd` chunks, but it doens't bother me so much given that I can pass the python data frame into `ggplot` using `py$data_frame` syntax 🤷.
+
+```{r plot, warning=FALSE, fig.height=4, fig.width=4}
+ggplot2::ggplot(py$titanic, aes(x = age, y = fare)) +
+  geom_point()
+```
+
+### And inline python code within markdown text!
+
+Here we find the destination of the first passenger:
+
+```{python first destination}
+first_dest = titanic["home.dest"][0]
+```
+
+The destination of the first passenger is `r py$first_dest`.
