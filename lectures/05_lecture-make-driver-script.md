@@ -6,10 +6,10 @@
 ## First - a discussion on which filetypes to save things as
 
 ### Data at the beginning and end of an analysis
-- Data someone might want to eyeball (e.g., at the beginning or end of an analysis) should be easily readable by a human in many program if possible, so `.csv` for example.
+- Data someone might want to eyeball (e.g., at the beginning or end of an analysis) should be easily readable by a human in many program if possible, so `.csv` for example. If your raw data is large, this may not be possible!
 
 ### Intermediate data files
-- For intermediate data files that are being passed between scripts, it is not as necessary for them to be human readable. Here we might want to optimize storage space or read/write speed. Something like `feather` can be a nice option for data frames for example (and this can be read by Python & R). For more info see: 
+- For intermediate data files that are being passed between scripts, it is not as necessary for them to be human readable. Here we might want to optimize storage space or read/write speed. Something like `feather` can be a nice option for data frames for example (and this can be read by Python & R). For more info see: https://blog.rstudio.com/2016/03/29/feather/
 
 ### Model objects
 - For models that we might want to use later in another script for prediction, we need to save them in a format that R or Python can read again as that object. In R we use `.rds`, and in Python we use `.pickle`. Examples of how to use these functions is below:
